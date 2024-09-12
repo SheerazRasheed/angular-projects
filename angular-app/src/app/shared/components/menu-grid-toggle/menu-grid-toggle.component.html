@@ -1,0 +1,22 @@
+<!--<div class="dots">-->
+<!--    <div></div>-->
+<!--    <div></div>-->
+<!--    <div></div>-->
+<!--    <div></div>-->
+<!--    <div></div>-->
+<!--    <div></div>-->
+<!--    <div></div>-->
+<!--    <div></div>-->
+<!--    <div></div>-->
+<!--</div>-->
+<div class="menu-container" (click)="toggleMenu()">
+    <!-- Closed state: 3x3 grid of dots -->
+    <div *ngIf="!isOpen" class="grid closed-state">
+        <span *ngFor="let dot of dots" class="dot"></span>
+    </div>
+
+    <!-- Open state: 3x3 grid of buttons -->
+    <div *ngIf="isOpen" class="grid open-state">
+        <button *ngFor="let item of menuItems" class="menu-button">{{ item }}</button>
+    </div>
+</div>
