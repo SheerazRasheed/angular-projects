@@ -1,0 +1,65 @@
+@if (slideCount() > 0) {
+  <div class="slider">
+    <div
+      class="slider__track"
+      [style.transform]="'translateX(-' + current() * 100 + '%)'"
+    >
+      @for (slide of slides(); track slide.title) {
+        <article class="slide" [attr.aria-hidden]="slide !== activeSlide()">
+          <img class="slide__image" [src]="slide.imageUrl" [alt]="slide.title" loading="lazy" />
+          <div class="slide__body">
+            <h3 class="slide__title">{{ slide.title }}</h3>
+            <p class="slide__description">{{ slide.description }}</p>
+            @if (slide.tags?.length) {
+              <ul class="slide__tags">
+                @for (tag of slide.tags; track tag) {
+                  <li class="slide__tag">{{ tag }}</li>
+                }
+              </ul>
+            }
+            <a class="slide__link" [href]="slide.link" target="_blank" rel="noopener noreferrer">
+              View project ↗
+            </a>
+          </div>
+        </article>
+      }
+    </div>
+
+    @if (slideCount() > 1) {
+      <button
+        type="button"
+        class="slider__nav slider__nav--prev"
+        aria-label="Previous project"
+        (click)="prev()"
+      >
+        ‹
+      </button>
+      <button
+        type="button"
+        class="slider__nav slider__nav--next"
+        aria-label="Next project"
+        (click)="next()"
+      >
+        ›
+      </button>
+
+      <div class="slider__dots" role="tablist" aria-label="Slides">
+        @for (slide of slides(); track slide.title; let i = $index) {
+          <button
+            type="button"
+            class="slider__dot"
+            role="tab"
+            [class.slider__dot--active]="i === current()"
+            [attr.aria-selected]="i === current()"
+            [attr.aria-label]="'Go to slide ' + (i + 1) + ': ' + slide.title"
+            (click)="goTo(i)"
+          ></button>
+        }
+      </div>
+    }
+
+    <p class="sr-only" aria-live="polite">
+      Showing {{ current() + 1 }} of {{ slideCount() }}: {{ activeSlide().title }}
+    </p>
+  </div>
+}

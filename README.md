@@ -1,29 +1,49 @@
-# NxTemp
+# Portfolio
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+An Nx + Angular workspace for a personal portfolio site, built as a
+microfrontend architecture with Webpack Module Federation:
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
-
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- **`portfolio`** — the SSR host/shell app (served on `http://localhost:4200`).
+- **`slider`** — a project-showcase carousel, built and deployable as its own
+  Angular app (served on `http://localhost:4201`) and loaded into the host at
+  runtime via dynamic Module Federation
+  (`apps/portfolio/public/module-federation.manifest.json`).
 
 ## Run tasks
 
-To run the dev server for your app, use:
+To run the portfolio shell together with the `slider` remote (recommended for
+local development — both get live-reloading dev-servers):
 
 ```sh
-npx nx serve nx-temp
+npx nx run-many -t serve -p portfolio,slider --parallel
+```
+
+> `npx nx serve portfolio` on its own also starts, but the shell's dynamic
+> Module Federation manifest points at the remote's *dev-server* URL
+> (`http://localhost:4201`). If `slider` isn't already running as a live
+> dev-server, Nx falls back to serving a one-off static build of it, and a
+> known issue in this Nx/Angular version (`@nx/module-federation`'s static
+> remote proxy skips its `browser/` path rewrite outside SSR dev-serve) means
+> that fallback 404s. Running both projects together sidesteps it entirely.
+
+To run just the `slider` remote in isolation (e.g. to iterate on the carousel
+without the shell):
+
+```sh
+npx nx serve slider
 ```
 
 To create a production bundle:
 
 ```sh
-npx nx build nx-temp
+npx nx build portfolio
+npx nx build slider
 ```
 
 To see all available targets to run for a project, run:
 
 ```sh
-npx nx show project nx-temp
+npx nx show project portfolio
 ```
 
 These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.

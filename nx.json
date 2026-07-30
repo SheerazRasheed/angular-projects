@@ -48,6 +48,21 @@
     },
     "server": {
       "cache": true
+    },
+    "@nx/vitest:test": {
+      "cache": true,
+      "inputs": ["default", "^production"]
+    },
+    "@nx/angular:webpack-browser": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": [
+        "production",
+        "^production",
+        {
+          "env": "NX_MF_DEV_REMOTES"
+        }
+      ]
     }
   },
   "plugins": [
@@ -75,5 +90,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "nx-temp"
+  "defaultProject": "portfolio"
 }

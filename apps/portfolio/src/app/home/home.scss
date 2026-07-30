@@ -1,0 +1,32 @@
+.hero {
+  max-width: 40rem;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    color: #6b7280;
+    line-height: 1.6;
+  }
+}
+
+.hero__cta {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  background: #111827;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+
+  &:hover,
+  &:focus-visible {
+    background: #374151;
+  }
+}

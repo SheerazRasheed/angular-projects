@@ -13,7 +13,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {},
+    "paths": {
+      "slider/Routes": ["apps/slider/src/app/remote-entry/entry.routes.ts"]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -29,17 +31,7 @@
   },
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    },
-    {
-      "path": "tsconfig.server.json"
-    }
-  ],
+  "references": [],
   "compileOnSave": false,
   "exclude": ["node_modules", "tmp"]
 }
